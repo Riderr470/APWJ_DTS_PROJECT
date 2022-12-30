@@ -49,10 +49,10 @@ public class UserService implements IRepo<User,Integer,User> {
         userRepository.delete(id);
     }
 
-    /*@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public User getByUsername(String username) { return userRepository.getByUsername(username); }
 
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getByUsername(username);
         if (user == null) {

@@ -1,6 +1,12 @@
 package Com.Domain;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+
+@Entity
 public class User {
+    @Id
     private int Id;
     private String Username;
     private String Email;

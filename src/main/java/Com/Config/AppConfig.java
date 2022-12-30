@@ -24,11 +24,11 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"Com.Repository", "Com.Controller","Com.Domain","Com.Service"})
 public class AppConfig implements WebMvcConfigurer {
 
-    /*@Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("/css");
-    }*/
+    }
 
     @Bean
     public ViewResolver viewResolver() {
