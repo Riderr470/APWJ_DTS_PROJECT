@@ -1,6 +1,7 @@
 package Com.Service;
 
 import Com.Domain.Authority;
+import Com.Repository.AuthorityInterface;
 import Com.Repository.AuthorityRepo;
 import Com.Repository.IRepo;
 import org.springframework.stereotype.Service;
@@ -10,35 +11,35 @@ import java.util.List;
 
 @Service
 @Transactional
-public class AuthorityService implements IRepo<Authority, Integer, Authority> {
-    private AuthorityRepo authorityRepo;
+public class AuthorityService implements AuthorityServInt {
+    private AuthorityInterface authorityInterface;
 
-    public AuthorityService(AuthorityRepo authorityRepo) {
-        this.authorityRepo = authorityRepo;
+    public AuthorityService(AuthorityInterface authorityInterface) {
+        this.authorityInterface = authorityInterface;
     }
 
     @Transactional
     public Authority create(Authority authority) {
-        return authorityRepo.create(authority);
+        return authorityInterface.create(authority);
     }
 
     @Transactional(readOnly = true)
-    public Authority get(Integer id) {
-        return authorityRepo.get(id);
+    public Authority get(Long id) {
+        return authorityInterface.get(id);
     }
 
     @Transactional(readOnly = true)
     public List<Authority> getAll() {
-        return authorityRepo.getAll();
+        return authorityInterface.getAll();
     }
 
     @Transactional
     public Authority update(Authority authority) {
-        return authorityRepo.update(authority);
+        return authorityInterface.update(authority);
     }
 
     @Transactional
-    public void delete(Integer id) {
-        authorityRepo.delete(id);
+    public void delete(Long id) {
+        authorityInterface.delete(id);
     }
 }

@@ -1,26 +1,48 @@
 package Com.Domain;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-public class Authority {
+@Table(name = "authority")
+public class Authority implements GrantedAuthority {
     @Id
-    private int Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    @NotNull
+    @Column(name = "roleName")
     private String RoleName;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority_map",
+            joinColumns = @JoinColumn(name = "authority_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
-
     public void setRoleName(String roleName) {
         RoleName = roleName;
     }
-
-    public int getId() {
-        return Id;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
+    public Long getId() {
+        return Id;
+    }
     public String getRoleName() {
+        return RoleName;
+    }
+    public List<User> getUsers() {
+        return users;
+    }
+    @Override
+    public String getAuthority() {
         return RoleName;
     }
 }

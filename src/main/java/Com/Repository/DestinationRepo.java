@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DestinationRepo implements IRepo<Destination, Integer, Destination>{
+public class DestinationRepo implements DestinationInterface{
     private SessionFactory sessionFactory;
 
     public DestinationRepo(SessionFactory sessionFactory) {
@@ -30,7 +30,7 @@ public class DestinationRepo implements IRepo<Destination, Integer, Destination>
     }
 
     @Override
-    public Destination get(Integer id) {
+    public Destination get(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Destination.class, id);
     }
@@ -41,7 +41,7 @@ public class DestinationRepo implements IRepo<Destination, Integer, Destination>
         return destination;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Destination destination = get(id);
         if (destination != null) {

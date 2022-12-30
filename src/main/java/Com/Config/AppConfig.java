@@ -5,6 +5,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -21,6 +22,7 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = {"Com.Repository", "Com.Controller","Com.Domain","Com.Service"})
 public class AppConfig implements WebMvcConfigurer {
 
@@ -30,19 +32,19 @@ public class AppConfig implements WebMvcConfigurer {
                 .addResourceLocations("/css");
     }
 
-    @Bean
+    /*@Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
         internalResourceViewResolver.setPrefix("/WEB-INF/views/");
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
-    }
+    }*/
 
     @Bean
     public DataSource dataSource() {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
-        mysqlDataSource.setDatabaseName("");
-        mysqlDataSource.setURL("");
+        mysqlDataSource.setDatabaseName("transportationsystemdb");
+        mysqlDataSource.setURL("jdbc:mysql://localhost:3306/transportationsystemdb");
         mysqlDataSource.setUser("root");
         mysqlDataSource.setPassword("root");
         return mysqlDataSource;
@@ -54,8 +56,6 @@ public class AppConfig implements WebMvcConfigurer {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.domain");
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.setProperty("show_sql", "true");
         sessionFactory.setHibernateProperties(properties);
         return sessionFactory;
     }

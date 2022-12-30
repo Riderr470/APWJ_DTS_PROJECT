@@ -2,8 +2,7 @@ package Com.Service;
 
 import Com.Domain.User;
 import Com.Repository.IRepo;
-import Com.Repository.IRepoUserRet;
-import Com.Repository.UserRepo;
+import Com.Repository.UserInterface;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,46 +12,46 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserService implements IRepo<User,Integer,User> {
-    private UserRepo userRepository;
+public class UserService implements UserServInt {
+    private UserInterface userInterface;
 
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public UserService(UserInterface userInterface, PasswordEncoder passwordEncoder) {
+        this.userInterface = userInterface;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.create(user);
+        return userInterface.create(user);
     }
 
     @Transactional(readOnly = true)
-    public User get(Integer id) {
-        return userRepository.get(id);
+    public User get(Long id) {
+        return userInterface.get(id);
     }
 
     @Transactional(readOnly = true)
     public List<User> getAll() {
-        return userRepository.getAll();
+        return userInterface.getAll();
     }
 
     @Transactional
     public User update(User user) {
-        return userRepository.update(user);
+        return userInterface.update(user);
     }
 
     @Transactional
-    public void delete(Integer id) {
-        userRepository.delete(id);
+    public void delete(Long id) {
+        userInterface.delete(id);
     }
 
     @Transactional(readOnly = true)
-    public User getByUsername(String username) { return userRepository.getByUsername(username); }
+    public User getByUsername(String username) { return userInterface.getByUsername(username); }
 
-    /*@Override
+   /* @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getByUsername(username);
         if (user == null) {

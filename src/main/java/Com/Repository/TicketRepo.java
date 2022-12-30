@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TicketRepo implements IRepo<Ticket,Integer, Ticket>{
+public class TicketRepo implements TicketInterface{
     private SessionFactory sessionFactory;
 
     public TicketRepo(SessionFactory sessionFactory) {
@@ -29,7 +29,7 @@ public class TicketRepo implements IRepo<Ticket,Integer, Ticket>{
         return ticket;
     }
 
-    public Ticket get(Integer id) {
+    public Ticket get(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Ticket.class, id);
     }
@@ -40,7 +40,7 @@ public class TicketRepo implements IRepo<Ticket,Integer, Ticket>{
         return ticket;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Ticket ticket = get(id);
         if (ticket != null) {

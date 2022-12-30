@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class DestinationService implements IRepo<Destination, Integer, Destination> {
+public class DestinationService implements DestinationServInt{
     private DestinationRepo destinationRepo;
 
 
@@ -23,7 +23,7 @@ public class DestinationService implements IRepo<Destination, Integer, Destinati
     }
 
     @Transactional(readOnly = true)
-    public Destination get(Integer id) {
+    public Destination get(Long id) {
         return destinationRepo.get(id);
     }
 
@@ -38,7 +38,7 @@ public class DestinationService implements IRepo<Destination, Integer, Destinati
     }
 
     @Transactional
-    public void delete(Integer id) {
+    public void delete(Long id) {
         destinationRepo.delete(id);
     }
 }

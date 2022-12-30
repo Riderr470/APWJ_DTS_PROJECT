@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AuthorityRepo implements IRepo<Authority, Integer, Authority>{
+public class AuthorityRepo implements AuthorityInterface{
 
     private SessionFactory sessionFactory;
 
@@ -29,7 +29,7 @@ public class AuthorityRepo implements IRepo<Authority, Integer, Authority>{
         return authority;
     }
 
-    public Authority get(Integer id) {
+    public Authority get(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Authority.class, id);
     }
@@ -40,7 +40,7 @@ public class AuthorityRepo implements IRepo<Authority, Integer, Authority>{
         return authority;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Authority authority = get(id);
         if (authority != null) {

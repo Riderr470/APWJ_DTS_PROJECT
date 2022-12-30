@@ -4,6 +4,7 @@ package Com.Service;
 
 import Com.Domain.Ticket;
 import Com.Repository.IRepo;
+import Com.Repository.TicketInterface;
 import Com.Repository.TicketRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,35 +13,35 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TicketService implements IRepo<Ticket, Integer, Ticket> {
-    private TicketRepo ticketRepo;
+public class TicketService implements TicketServInt {
+    private TicketInterface ticketInterface;
 
-    public TicketService(TicketRepo ticketRepo) {
-        this.ticketRepo = ticketRepo;
+    public TicketService(TicketInterface ticketInterface) {
+        this.ticketInterface = ticketInterface;
     }
 
     @Transactional
     public Ticket create(Ticket ticket) {
-        return ticketRepo.create(ticket);
+        return ticketInterface.create(ticket);
     }
 
     @Transactional(readOnly = true)
-    public Ticket get(Integer id) {
-        return ticketRepo.get(id);
+    public Ticket get(Long id) {
+        return ticketInterface.get(id);
     }
 
     @Transactional(readOnly = true)
     public List<Ticket> getAll() {
-        return ticketRepo.getAll();
+        return ticketInterface.getAll();
     }
 
     @Transactional
     public Ticket update(Ticket ticket) {
-        return ticketRepo.update(ticket);
+        return ticketInterface.update(ticket);
     }
 
     @Transactional
-    public void delete(Integer id) {
-        ticketRepo.delete(id);
+    public void delete(Long id) {
+        ticketInterface.delete(id);
     }
 }

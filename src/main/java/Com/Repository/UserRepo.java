@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserRepo implements IRepo<User, Integer, User>, IRepoUserRet<User>{
+public class UserRepo implements UserInterface{
     private SessionFactory sessionFactory;
 
     public UserRepo(SessionFactory sessionFactory) {
@@ -30,7 +30,7 @@ public class UserRepo implements IRepo<User, Integer, User>, IRepoUserRet<User>{
     }
 
     @Override
-    public User get(Integer id) {
+    public User get(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(User.class, id);
     }
@@ -41,7 +41,7 @@ public class UserRepo implements IRepo<User, Integer, User>, IRepoUserRet<User>{
         return user;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = get(id);
         if (user != null) {
