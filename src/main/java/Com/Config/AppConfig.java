@@ -43,8 +43,8 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
-        mysqlDataSource.setDatabaseName("transportationsystemdb");
-        mysqlDataSource.setURL("jdbc:mysql://localhost:3306/transportationsystemdb");
+        mysqlDataSource.setDatabaseName("bus_system_db");
+        mysqlDataSource.setURL("jdbc:mysql://localhost:3306/bus_system_db");
         mysqlDataSource.setUser("root");
         mysqlDataSource.setPassword("root");
         return mysqlDataSource;
@@ -54,7 +54,7 @@ public class AppConfig implements WebMvcConfigurer {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.domain");
+        sessionFactory.setPackagesToScan("Com.Domain");
         Properties properties = new Properties();
         sessionFactory.setHibernateProperties(properties);
         return sessionFactory;

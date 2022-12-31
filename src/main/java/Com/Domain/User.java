@@ -12,24 +12,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @NotNull
-    @Column(name = "username")
+    @Column(name = "Username")
     private String Username;
     @NotNull
-    @Column(name = "email")
+    @Column(name = "Email")
     private String Email;
     @NotNull
-    @Column(name = "password")
+    @Column(name = "Password")
     private String Password;
     @NotNull
-    @Column(name = "phone")
+    @Column(name = "Phone")
     private String Phone;
     @NotNull
-    @Column(name = "status")
+    @Column(name = "Status")
     private String Status;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority_map",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id")
+            joinColumns = @JoinColumn(name = "Id"),
+            inverseJoinColumns = @JoinColumn(name = "Id")
     )
     private List<Authority> authorities;
 

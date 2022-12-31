@@ -13,12 +13,21 @@ public class Authority implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @NotNull
-    @Column(name = "roleName")
+    @Column(name = "role")
     private String RoleName;
+    public Authority(Long authority_id, String roleName){
+        super();
+        this.Id=authority_id;
+        RoleName=roleName;
+    }
+
+    public Authority() {
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority_map",
-            joinColumns = @JoinColumn(name = "authority_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            joinColumns = @JoinColumn(name = "Id"),
+            inverseJoinColumns = @JoinColumn(name = "Id")
     )
     private List<User> users;
 

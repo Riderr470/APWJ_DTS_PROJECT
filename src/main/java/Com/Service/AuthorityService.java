@@ -3,7 +3,6 @@ package Com.Service;
 import Com.Domain.Authority;
 import Com.Repository.AuthorityInterface;
 import Com.Repository.AuthorityRepo;
-import Com.Repository.IRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,7 +2,6 @@ package Com.Controller;
 
 import Com.Domain.Authority;
 import Com.Service.AuthorityServInt;
-import Com.Service.AuthorityService;
 import Com.Exception.BadRequestAlertException;
 import Com.Exception.NotFoundAlertException;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -19,10 +18,10 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class AuthorityController {
 
-    private AuthorityServInt authorityService;
+    private AuthorityServInt authorityServInt;
 
-    public AuthorityController(AuthorityServInt authorityService) {
-        this.authorityService = authorityService;
+    public AuthorityController(AuthorityServInt authorityServInt) {
+        this.authorityServInt = authorityServInt;
     }
 
     @InitBinder
@@ -36,7 +35,7 @@ public class AuthorityController {
         if (authority.getId() != null) {
             throw new BadRequestAlertException("A new authority cannot have an id value");
         }
-        authorityService.create(authority);
+        authorityServInt.create(authority);
         return ResponseEntity.created(new URI("/authorities/"))
                 .body(authority);
     }
@@ -46,20 +45,20 @@ public class AuthorityController {
         if (authority.getId() == null) {
             throw new BadRequestAlertException("Invalid id");
         }
-        authorityService.update(authority);
+        authorityServInt.update(authority);
         return ResponseEntity.created(new URI("/authorities/"))
                 .body(authority);
     }
 
     @GetMapping("/authorities")
     public ResponseEntity<List<Authority>> getAllAuthorities() {
-        List<Authority> authorities = authorityService.getAll();
+        List<Authority> authorities = authorityServInt.getAll();
         return ResponseEntity.ok().body(authorities);
     }
 
     @GetMapping("/authorities/{id}")
     public ResponseEntity<Authority> getAuthority(@PathVariable Long id) {
-        Optional<Authority> authority = Optional.ofNullable(authorityService.get(id));
+        Optional<Authority> authority = Optional.ofNullable(authorityServInt.get(id));
         if (authority.isPresent()) {
             return ResponseEntity.ok().body(authority.get());
         }
@@ -68,7 +67,7 @@ public class AuthorityController {
 
     @DeleteMapping("/authorities/{id}")
     public ResponseEntity<Authority> deleteAuthority(@PathVariable Long id) {
-        authorityService.delete(id);
+        authorityServInt.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

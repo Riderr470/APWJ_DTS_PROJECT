@@ -1,7 +1,6 @@
 package Com.Service;
 
 import Com.Domain.User;
-import Com.Repository.IRepo;
 import Com.Repository.UserInterface;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +23,7 @@ public class UserService implements UserServInt {
 
     @Transactional
     public User create(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userInterface.create(user);
     }
 
