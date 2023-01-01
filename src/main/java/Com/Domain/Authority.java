@@ -15,21 +15,16 @@ public class Authority implements GrantedAuthority {
     @NotNull
     @Column(name = "role")
     private String RoleName;
-    public Authority(Long authority_id, String roleName){
-        super();
-        this.Id=authority_id;
-        RoleName=roleName;
-    }
 
     public Authority() {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority_map",
-            joinColumns = @JoinColumn(name = "Id"),
-            inverseJoinColumns = @JoinColumn(name = "Id")
+            joinColumns = @JoinColumn(name = "authority_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users;
+    private List<User> user;
 
     public void setId(Long id) {
         Id = id;
@@ -37,8 +32,8 @@ public class Authority implements GrantedAuthority {
     public void setRoleName(String roleName) {
         RoleName = roleName;
     }
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<User> user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -47,8 +42,8 @@ public class Authority implements GrantedAuthority {
     public String getRoleName() {
         return RoleName;
     }
-    public List<User> getUsers() {
-        return users;
+    public List<User> getUser() {
+        return user;
     }
     @Override
     public String getAuthority() {

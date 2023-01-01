@@ -28,8 +28,8 @@ public class User {
     private String Status;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority_map",
-            joinColumns = @JoinColumn(name = "Id"),
-            inverseJoinColumns = @JoinColumn(name = "Id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private List<Authority> authorities;
 

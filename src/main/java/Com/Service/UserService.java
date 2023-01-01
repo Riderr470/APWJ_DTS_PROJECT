@@ -3,6 +3,7 @@ package Com.Service;
 import Com.Domain.User;
 import Com.Repository.UserInterface;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserService implements UserServInt {
+public class UserService implements UserServInt, UserDetailsService {
     private UserInterface userInterface;
 
     private PasswordEncoder passwordEncoder;
@@ -23,7 +24,7 @@ public class UserService implements UserServInt {
 
     @Transactional
     public User create(User user) {
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userInterface.create(user);
     }
 
@@ -50,13 +51,13 @@ public class UserService implements UserServInt {
     @Transactional(readOnly = true)
     public User getByUsername(String username) { return userInterface.getByUsername(username); }
 
-   /* @Override
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
-    }*/
+    }
 
 }
