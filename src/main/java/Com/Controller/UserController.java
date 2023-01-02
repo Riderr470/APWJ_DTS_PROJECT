@@ -3,6 +3,8 @@ package Com.Controller;
 import Com.Domain.Authority;
 import Com.Domain.User;
 import Com.Exception.NotFoundAlertException;
+import Com.Service.AuthorityServInt;
+import Com.Service.AuthorityService;
 import Com.Service.UserServInt;
 import Com.Service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,13 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserController {
     private UserServInt userServInt;
+    private AuthorityServInt authorityServInt;
     private PasswordEncoder passwordEncoder;
 
-    public UserController (UserServInt userServInt, PasswordEncoder passwordEncoder) {
+    public UserController (UserServInt userServInt, AuthorityServInt authorityServInt, PasswordEncoder passwordEncoder) {
         this.userServInt = userServInt;
         this.passwordEncoder = passwordEncoder;
+        this.authorityServInt = authorityServInt;
     }
     @PostMapping("/register")
     public ResponseEntity<User> register(@Valid @RequestBody User user) throws URISyntaxException {
@@ -39,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getAuthority(@PathVariable Long id) {
+    public ResponseEntity<User> getUsers(@PathVariable Long id) {
         Optional<User> user = Optional.ofNullable(userServInt.get(id));
         if (user.isPresent()) {
             return ResponseEntity.ok().body(user.get());

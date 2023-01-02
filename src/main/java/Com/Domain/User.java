@@ -12,19 +12,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @NotNull
-    @Column(name = "Username")
+    @Column(name = "username")
     private String Username;
     @NotNull
-    @Column(name = "Email")
+    @Column(name = "email")
     private String Email;
     @NotNull
-    @Column(name = "Password")
+    @Column(name = "password")
     private String Password;
     @NotNull
-    @Column(name = "Phone")
+    @Column(name = "phone")
     private String Phone;
     @NotNull
-    @Column(name = "Status")
+    @Column(name = "status")
     private String Status;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority_map",

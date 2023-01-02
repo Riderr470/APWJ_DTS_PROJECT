@@ -13,7 +13,7 @@ public class Authority implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @NotNull
-    @Column(name = "role")
+    @Column(name = "roleName")
     private String RoleName;
 
     public Authority() {
@@ -24,7 +24,8 @@ public class Authority implements GrantedAuthority {
             joinColumns = @JoinColumn(name = "authority_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> user;
+    //@ManyToMany(mappedBy = "authorities")
+    private List<User> users;
 
     public void setId(Long id) {
         Id = id;
@@ -32,8 +33,8 @@ public class Authority implements GrantedAuthority {
     public void setRoleName(String roleName) {
         RoleName = roleName;
     }
-    public void setUsers(List<User> user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public Long getId() {
@@ -43,7 +44,7 @@ public class Authority implements GrantedAuthority {
         return RoleName;
     }
     public List<User> getUser() {
-        return user;
+        return users;
     }
     @Override
     public String getAuthority() {

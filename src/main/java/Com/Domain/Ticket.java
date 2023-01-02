@@ -1,9 +1,15 @@
 package Com.Domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "ticket")
 public class Ticket {
-    private int Id;
+    @Id
+    private Long Id;
+    @Column(name = "user_id")
+    private Long Userid;
     private String From;
     private String To;
     private float Distance;
@@ -12,7 +18,7 @@ public class Ticket {
     private LocalDate Validity;
 
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
     public double getPrice() {
@@ -34,7 +40,11 @@ public class Ticket {
         return Validity;
     }
 
-    public void setId(int id) {
+    public Long getUserid() {
+        return Userid;
+    }
+
+    public void setId(Long id) {
         Id = id;
     }
     public void setFrom(String from) {
@@ -54,5 +64,9 @@ public class Ticket {
     }
     public void setValidity(LocalDate validity) {
         Validity = validity;
+    }
+
+    public void setUserid(Long userid) {
+        Userid = userid;
     }
 }

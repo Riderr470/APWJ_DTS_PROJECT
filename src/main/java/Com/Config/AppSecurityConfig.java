@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -55,12 +56,12 @@ public class AppSecurityConfig implements AppSecurityConfig2 {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/customer/**")
+                .antMatchers("/api/adm/**")
                 .access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/leaveTypes/**")
+                .antMatchers("/api/cus/**")
                 .access("hasRole('ROLE_USER')")
                 .and()
                 .rememberMe()
